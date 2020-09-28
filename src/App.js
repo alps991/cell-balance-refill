@@ -1,15 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ProviderList from './ProviderList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Cell Refill App</h1>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  state = {
+    selectedProvider: null,
+    availableProviders: ["MTS", "Beeline", "Megafone"],
+  }
+
+  handleSelectProvider = (provider) => {
+    this.setState(() => ({ selectedProvider: provider }));
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Cell Refill App</h1>
+        </header>
+        {
+          this.state.selectedProvider == null ? (
+            <ProviderList
+              providers={this.state.availableProviders}
+              handleSelectProvider={this.handleSelectProvider}
+            />
+          ) : null}
+
+      </div>
+    );
+  }
+
 }
 
 export default App;
