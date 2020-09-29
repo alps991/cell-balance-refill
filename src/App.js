@@ -2,17 +2,23 @@ import React from 'react';
 import './App.css';
 import ProviderList from './ProviderList';
 import RefillForm from './RefillForm';
+import database from './firebase/firebase';
 
 class App extends React.Component {
 
   state = {
     selectedProvider: null,
-    availableProviders: ["MTS", "Beeline", "Megafone"],
-    balances: {
-      "MTS": 0,
-      "Beeline": 12,
-      "Megafone": 0
-    }
+    availableProviders: [],
+    balances: null,
+  }
+
+  componentDidMount() {
+    database.ref("availableProviders").once('value').then(res => {
+      this.setState(() => ({ availableProviders: res.val() }));
+    });
+    database.ref("users/adonmez/balances").once('value').then(res => {
+      this.setState(() => ({ balances: res.val() }));
+    });
   }
 
   handleSelectProvider = (provider) => {
@@ -22,7 +28,9 @@ class App extends React.Component {
   handleUpdateBalance = (refillAmount) => {
     const newBalances = { ...this.state.balances };
     newBalances[this.state.selectedProvider] += refillAmount;
-    this.setState(() => ({ balances: newBalances }));
+    database.ref("users/adonmez/balances").set(newBalances).then(res => {
+      this.setState(() => ({ balances: newBalances }));
+    }).catch(err => console.log(err));
   }
 
   render() {
@@ -44,13 +52,10 @@ class App extends React.Component {
                 handleSelectProvider={this.handleSelectProvider}
                 handleUpdateBalance={this.handleUpdateBalance}
               />
-
             )}
-
       </div>
     );
   }
-
 }
 
 export default App;
