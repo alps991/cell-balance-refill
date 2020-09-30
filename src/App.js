@@ -10,6 +10,7 @@ class App extends React.Component {
     selectedProvider: null,
     availableProviders: [],
     balances: null,
+    responseMessage: '',
   }
 
   componentDidMount() {
@@ -29,8 +30,22 @@ class App extends React.Component {
     const newBalances = { ...this.state.balances };
     newBalances[this.state.selectedProvider] += refillAmount;
     database.ref("users/adonmez/balances").set(newBalances).then(res => {
-      this.setState(() => ({ balances: newBalances }));
-    }).catch(err => console.log(err));
+      this.setState(() => ({
+        responseMessage: 'Refill Success!',
+        balances: newBalances
+      }));
+
+      setTimeout(() => {
+        this.setState(() => ({
+          selectedProvider: null,
+          responseMessage: ''
+        }));
+      }, 1500);
+
+    }).catch(err => {
+      this.setState(() => ({ responseMessage: 'Refill failed' }));
+      console.log(err);
+    });
   }
 
   render() {
@@ -49,6 +64,7 @@ class App extends React.Component {
               <RefillForm
                 selectedProvider={this.state.selectedProvider}
                 currentBalance={this.state.balances[this.state.selectedProvider]}
+                responseMessage={this.state.responseMessage}
                 handleSelectProvider={this.handleSelectProvider}
                 handleUpdateBalance={this.handleUpdateBalance}
               />

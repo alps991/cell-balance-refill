@@ -26,6 +26,11 @@
     height: 8vh;
 }
 
+.message {
+    font-size: 2em;
+
+}
+
 button {
     height: 10vh;
     width: 20vw;

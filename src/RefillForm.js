@@ -46,7 +46,8 @@ class RefillForm extends React.Component {
             <div className="refill-page">
                 <h2 className="selected-provider">{this.props.selectedProvider}</h2>
                 <p className="balance">Current balance: ${this.props.currentBalance}</p>
-                {this.state.errorMessage.length ? <p>{this.state.errorMessage}</p> : null}
+                {this.state.errorMessage.length ? <p className="message">{this.state.errorMessage}</p> : null}
+                {this.props.responseMessage.length ? <p className="message">{this.props.responseMessage}</p> : null}
                 <form className="refill-form">
                     <input
                         type="text"
