@@ -28,11 +28,12 @@ class RefillForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const refillAmount = parseFloat(this.state.refillAmount);
+        const phoneNumber = parseFloat(this.state.phoneNumber);
 
         if (isNaN(refillAmount) || refillAmount < 1 || refillAmount > 1000) {
             this.setState(() => ({ errorMessage: "Please enter a value between 1 and 1000" }));
         } else {
-            this.props.handleUpdateBalance(refillAmount);
+            this.props.handleUpdateBalance(refillAmount, phoneNumber);
             this.setState(() => ({
                 refillAmount: '',
                 phoneNumber: '',
@@ -47,7 +48,7 @@ class RefillForm extends React.Component {
                 <h2 className="selected-provider">{this.props.selectedProvider}</h2>
                 <p className="balance">Current balance: ${this.props.currentBalance}</p>
                 {this.state.errorMessage.length ? <p className="message">{this.state.errorMessage}</p> : null}
-                {this.props.responseMessage.length ? <p className="message">{this.props.responseMessage}</p> : null}
+                {this.props.updateBalanceResponseMessage.length ? <p className="message">{this.props.updateBalanceResponseMessage}</p> : null}
                 <form className="refill-form">
                     <input
                         type="text"

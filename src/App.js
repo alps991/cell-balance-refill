@@ -11,7 +11,7 @@ class App extends React.Component {
     selectedProvider: null,
     availableProviders: [],
     balances: null,
-    responseMessage: '',
+    updateBalanceResponseMessage: '',
     curUser: '',
     loginErrorMessage: '',
   }
@@ -40,7 +40,7 @@ class App extends React.Component {
     this.setState(() => ({
       selectedProvider: null,
       balances: null,
-      responseMessage: '',
+      updateBalanceResponseMessage: '',
       curUser: '',
       loginErrorMessage: '',
     }));
@@ -50,25 +50,33 @@ class App extends React.Component {
     this.setState(() => ({ selectedProvider: provider }));
   }
 
-  handleUpdateBalance = (refillAmount) => {
-    const newBalances = { ...this.state.balances };
-    newBalances[this.state.selectedProvider] += refillAmount;
-    database.ref(`users/${this.state.curUser}/balances`).set(newBalances).then(res => {
-      this.setState(() => ({
-        responseMessage: 'Refill Success!',
-        balances: newBalances
-      }));
+  handleUpdateBalance = (refillAmount, phoneNumber) => {
 
-      setTimeout(() => {
-        this.setState(() => ({
-          selectedProvider: null,
-          responseMessage: ''
-        }));
-      }, 1500);
+    database.ref(`users/${this.state.curUser}`).once('value').then(res => {
+      const user = res.val();
+      if (user.phoneNumber !== phoneNumber) {
+        this.setState(() => ({ updateBalanceResponseMessage: "Incorrect phone number" }));
+      } else {
+        const newBalances = { ...this.state.balances };
+        newBalances[this.state.selectedProvider] += refillAmount;
+        database.ref(`users/${this.state.curUser}/balances`).set(newBalances).then(res => {
+          this.setState(() => ({
+            updateBalanceResponseMessage: 'Refill Success!',
+            balances: newBalances
+          }));
 
-    }).catch(err => {
-      this.setState(() => ({ responseMessage: 'Refill failed' }));
-      console.log(err);
+          setTimeout(() => {
+            this.setState(() => ({
+              selectedProvider: null,
+              updateBalanceResponseMessage: ''
+            }));
+          }, 1500);
+
+        }).catch(err => {
+          this.setState(() => ({ updateBalanceResponseMessage: 'Refill failed' }));
+          console.log(err);
+        });
+      }
     });
   }
 
@@ -107,7 +115,7 @@ class App extends React.Component {
               <RefillForm
                 selectedProvider={this.state.selectedProvider}
                 currentBalance={this.state.balances[this.state.selectedProvider]}
-                responseMessage={this.state.responseMessage}
+                updateBalanceResponseMessage={this.state.updateBalanceResponseMessage}
                 handleSelectProvider={this.handleSelectProvider}
                 handleUpdateBalance={this.handleUpdateBalance}
               />
