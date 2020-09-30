@@ -23,6 +23,22 @@ const database = firebase.database();
 //             "Beeline": 12,
 //             "Megafone": 50,
 //         }
+//     },
+//     "testuser": {
+//         password: "password",
+//         balances: {
+//             "MTS": 0,
+//             "Beeline": 0,
+//             "Megafone": 0,
+//         }
+//     },
+//     "anotheruser": {
+//         password: "abc123",
+//         balances: {
+//             "MTS": 0,
+//             "Beeline": 0,
+//             "Megafone": 0,
+//         }
 //     }
 // });
 

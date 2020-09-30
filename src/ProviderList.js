@@ -14,6 +14,7 @@ class ProviderList extends React.Component {
                             <button
                                 onClick={() => this.props.handleSelectProvider(provider)}
                                 className="provider-button"
+                                key={provider}
                             >
                                 {provider}
                             </button>
