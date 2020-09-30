@@ -33,7 +33,7 @@ class LoginPage extends React.Component {
                         autoFocus
                     />
                     <input
-                        type="text"
+                        type="password"
                         onChange={this.handlePasswordChange}
                         value={this.state.password}
                         placeholder="Password"

@@ -1,32 +1,23 @@
 import React from 'react';
 import './ProviderList.css';
 
-class ProviderList extends React.Component {
+const ProviderList = (props) => (
+    <div className="provider-list">
+        {
+            props.providers.map(provider => {
+                return (
+                    <button
+                        onClick={() => props.handleSelectProvider(provider)}
+                        className="provider-button"
+                        key={provider}
+                    >
+                        {provider}
+                    </button>
+                );
+            })
+        }
+    </div>
+);
 
-
-    render() {
-
-        return (
-            <div className="provider-list">
-                {
-                    this.props.providers.map(provider => {
-                        return (
-                            <button
-                                onClick={() => this.props.handleSelectProvider(provider)}
-                                className="provider-button"
-                                key={provider}
-                            >
-                                {provider}
-                            </button>
-                        );
-                    })
-                }
-            </div>
-        );
-
-
-    }
-
-}
 
 export default ProviderList;

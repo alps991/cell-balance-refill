@@ -18,6 +18,7 @@ const database = firebase.database();
 // database.ref('users').set({
 //     "adonmez": {
 //         password: "pass",
+//         phoneNumber: 9175550000,
 //         balances: {
 //             "MTS": 0,
 //             "Beeline": 12,
@@ -26,6 +27,7 @@ const database = firebase.database();
 //     },
 //     "testuser": {
 //         password: "password",
+//         phoneNumber: 9175550001,
 //         balances: {
 //             "MTS": 0,
 //             "Beeline": 0,
@@ -34,6 +36,7 @@ const database = firebase.database();
 //     },
 //     "anotheruser": {
 //         password: "abc123",
+//         phoneNumber: 9175550002,
 //         balances: {
 //             "MTS": 0,
 //             "Beeline": 0,
