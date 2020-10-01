@@ -22,7 +22,7 @@ class App extends React.Component {
       const users = res.val();
       if (!(username in users)) {
         this.setState(() => ({ loginErrorMessage: 'That user does not exist' }));
-      } else if (users[username].password != password) {
+      } else if (users[username].password !== password) {
         this.setState(() => ({ loginErrorMessage: 'Incorrect password' }));
       } else {
         this.setState(() => ({ curUser: username, loginErrorMessage: '' }));
@@ -47,7 +47,10 @@ class App extends React.Component {
   }
 
   handleSelectProvider = (provider) => {
-    this.setState(() => ({ selectedProvider: provider }));
+    this.setState(() => ({
+      selectedProvider: provider,
+      updateBalanceResponseMessage: '',
+    }));
   }
 
   handleUpdateBalance = (refillAmount, phoneNumber) => {
@@ -86,7 +89,9 @@ class App extends React.Component {
       return (
         <div className="App">
           <header className="App-header">
-            <h1>Cell Refill App</h1>
+            <div className="App-header-content">
+              <h1>Cell Refill App</h1>
+            </div>
           </header>
 
           <LoginPage

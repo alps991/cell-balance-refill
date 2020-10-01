@@ -8,7 +8,19 @@
 
 .provider-button {
     width: 50vw;
-    height: 10vw;
+    height: 20vh;
     cursor: pointer;
     font-size: 3em;
+}
+
+@media (max-width: 45rem) {
+    .provider-list {
+        height: 60vh;
+    }
+
+    .provider-button {
+        width: 80vw;
+        height: 12vh;
+        font-size: 2em;
+    }
 }

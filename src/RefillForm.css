@@ -27,8 +27,8 @@
 }
 
 .message {
+    color: red;
     font-size: 2em;
-
 }
 
 button {
@@ -37,4 +37,37 @@ button {
     font-size: 2em;
     cursor: pointer;
     
+}
+
+
+@media (max-width: 45rem) {
+
+    .refill-form {
+        height: 35vh;
+    }
+    .selected-provider {
+        font-size: 2em;
+        margin: 2vh;
+    }
+
+    .message {
+        font-size: 1.5em;
+    }
+
+    .balance {
+        font-size: 1.5em;
+        margin: 2vh;
+    }
+
+    .number-input {
+        font-size: 1.5em;
+        width: 70vw;
+        height: 5vh;
+    }
+
+    button {
+        height: 7vh;
+        width: 80vw;
+        font-size: 1.5em;
+    }
 }
